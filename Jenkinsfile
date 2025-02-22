@@ -40,11 +40,12 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 withSonarQubeEnv("${SONARSERVER}") {
-                    sh ''' mvn  sonar:sonar \
-                    -Dsonar.host.url=${SONAR_URL} \ 
-                    -Dsonar.login=${SONAR_TOKEN}
-                    '''
-                }
+                 sh """
+                    mvn sonar:sonar \
+                        -Dsonar.host.url=${SONAR_URL} \
+                        -Dsonar.login=${SONAR_TOKEN}
+                    """  
+              }
             }
         }
     }
