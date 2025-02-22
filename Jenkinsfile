@@ -17,6 +17,8 @@ pipeline {
         NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
+        SONAR_URL = 'http://192.168.101.106:9000/'
+        SONAR_TOKEN = credentials('sonartoken')
     }
 
     stages {
@@ -38,15 +40,10 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 withSonarQubeEnv("${SONARSERVER}") {
-                    sh '''${SONARSCANNER} \
-                    -Dsonar.projectKey=vprofile \
-                    -Dsonar.projectName=vprofile \
-                    -Dsonar.projectVersion=1.0 \
-                    -Dsonar.sources=src/ \
-                    -Dsonar.java.binaries=target/target-classes/com/visualpathit/account/controllerTest \
-                    -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+                    sh ''' mvn  sonar:sonar \
+                    -Dsonar.host.url=${SONAR_URL} \ 
+                    -Dsonar.login=${SONAR_TOKEN}
+                    '''
                 }
             }
         }
