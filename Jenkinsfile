@@ -69,13 +69,13 @@ pipeline {
         }
     }
  
-    post {
-        success {
-            echo "Build, SonarQube analysis, and Nexus upload completed successfully!"
-        }
-        failure {
-            echo "Pipeline failed. Check logs."
-        }
-    }
+    #post {
+     #   success {
+      #      echo "Build, SonarQube analysis, and Nexus upload completed successfully!"
+       # }
+        #failure {
+         #   echo "Pipeline failed. Check logs."
+        #}
+    #}
 }
 
