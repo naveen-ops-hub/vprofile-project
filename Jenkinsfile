@@ -11,8 +11,8 @@ pipeline {
         NEXUS_PASS = 'Admin#1234'
         RELEASE_REPO = 'vprofile-release'
         CENTRAL_REPO = 'vpro-maven-central'
-        NEXUSIP = '192.168.101.124'
-        NEXUSPORT = '8081'
+        NEXUS_IP = '192.168.101.124'
+        NEXUS_PORT = '8081'
         NEXUS_GRP_REPO = 'vpro-maven-group'
         NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
@@ -66,6 +66,14 @@ pipeline {
                     ]
                 )
             }
+        }
+    }
+    post {
+        success {
+            echo "Build, SonarQube analysis, and Nexus upload completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs."
         }
     }
  
